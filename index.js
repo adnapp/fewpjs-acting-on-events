@@ -1,41 +1,44 @@
-// Your code here
-
-let dodger = document.getElementById("dodger");
-
-function moveDodgerLeft() {
-    let leftNumbers = dodger.style.left.replace("px", "");
-    let left = parseInt(leftNumbers, 10);
-  
-    if (left > 0) {
-      dodger.style.left = `${left - 10}px`;
-    }
-  }
-
-  function moveDodgerRight() {
-    let leftNumbers = dodger.style.left.replace("px", "");
-    let left = parseInt(leftNumbers, 10);
-  
-    if (left < 360 ) {
-      dodger.style.left = `${left + 10}px`;
-    }
-  }
+document.addEventListener("DOMContentLoaded", function() {
+  // initializes the board
+  init();
 
 
-  function moveDodgerUp() {
-    let bottomNumbers = dodger.style.bottom.replace("px", "");
-    let bottom = parseInt(bottomNumbers, 10);
-  
-    if (bottom < 380 ) {
-      dodger.style.bottom = `${bottom + 10}px`;
-    }
-  }
+  // ADD CODE HERE!
+  const movesUl = document.querySelector('#moves-container')
 
   document.addEventListener("keydown", function(e) {
-    if (e.key === "ArrowLeft") {
-      moveDodgerLeft();
-    } if (e.key === "ArrowRight") {
-        moveDodgerRight();
-      } if (e.key === "ArrowUp") {
-        moveDodgerUp();
-      } 
-  });
+    const moveLi = document.createElement('li')
+    moveLi.dataset.id = "movesList" // setting datatype -- line 38
+    if (e.key === "ArrowLeft"){
+      moveLi.textContent = "left"
+      movesUl.append(moveLi)
+    } if (e.key === "ArrowRight"){
+      moveLi.textContent = "right"  
+      movesUl.append(moveLi)
+    } if (e.key === "ArrowUp"){
+      moveLi.textContent = "up"
+      movesUl.append(moveLi)
+    } if (e.key === "ArrowDown"){
+      moveLi.textContent = "down"
+      movesUl.append(moveLi)
+    } 
+    
+  })
+
+  
+  const moveButton = document.querySelector("#move-button")
+
+  moveButton.addEventListener("click", function(event){
+    const arrowMoves = movesUl.firstElementChild.textContent
+    move(arrowMoves)
+    movesUl.firstElementChild.remove()
+  })
+
+  movesUl.addEventListener("click", function(event){
+    if (event.target.dataset.id === "movesList") {
+      console.log("movesList")
+  
+      event.target.remove()
+    }
+  })
+});
